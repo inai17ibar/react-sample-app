@@ -2,19 +2,13 @@ import React from 'react';
 import './App.css';
 
 export default function App() {
+  const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
+  const description = 'Gregorio Y. Zara';
   return (
-    <>
-    <h1>Hedy Lamarr's Todos</h1>
     <img
-      src="https://i.imgur.com/yXOvdOSs.jpg"
-      alt="Hedy Lamarr"
-      className="photo"
+      className="avatar"
+      src={avatar}
+      alt={description}
     />
-    <ul>
-      <li>Invent new traffic lights</li>
-      <li>Rehearse a movie scene</li>
-      <li>Improve spectrum technology</li>
-    </ul>
-  </>
   );
 }
