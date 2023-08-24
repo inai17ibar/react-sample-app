@@ -1,23 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Gallery from './Gallery.js';
 
-function Profile() {
+export default function App() {
   return (
-    <img
-      src="https://i.imgur.com/MK3eW3As.jpg"
-      alt="Katherine Johnson"
-    />
-  );
-}
-
-export default function Gallery() {
-  return (
-    <section>
-      <h1>Amazing scientists</h1>
-      <Profile />
-      <Profile />
-      <Profile />
-    </section>
+    <Gallery />
   );
 }
