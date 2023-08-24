@@ -1,7 +1,5 @@
 import React from 'react';
 
-const today = new Date();
-
 const person = {
     name: 'Gregorio Y. Zara',
     theme: {
@@ -10,25 +8,20 @@ const person = {
     }
   };
 
-function formatDate(date) {
-  return new Intl.DateTimeFormat(
-    'en-US',
-    { weekday: 'long' }
-  ).format(date);
-}
-
 export default function TodoList() {
   return (
-    <>
-    <h1>To Do List for {formatDate(today)}</h1>
-    <ul style={{
-        backgroundColor: 'black',
-        color: 'pink'
-      }}>
+    <div style={person.theme}>
+      <h1>{person.name}'s Todos</h1>
+      <img
+        className="avatar"
+        src="https://i.imgur.com/7vQD0fPs.jpg"
+        alt="Gregorio Y. Zara"
+      />
+      <ul>
         <li>Improve the videophone</li>
         <li>Prepare aeronautics lectures</li>
         <li>Work on the alcohol-fuelled engine</li>
-    </ul>
-    </>
+      </ul>
+    </div>
   );
 }
