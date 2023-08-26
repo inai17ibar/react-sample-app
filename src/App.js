@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { getImageUrl } from './utils.js';
 
-function Avatar({ person, size }) {
+function Avatar({person, size = 100}) {
   return (
     <img
       className="avatar"
