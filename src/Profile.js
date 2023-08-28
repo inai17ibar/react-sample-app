@@ -1,34 +1,34 @@
 import React from 'react';
-import { getImageUrl } from './utils.js';
 
-export default function Profile({ person, imageSize = 70 }) {
-    const imageSrc = getImageUrl(person)
-  
+function Card({ children }) {
     return (
-      <section className="profile">
-        <h2>{person.name}</h2>
-        <img
-          className="avatar"
-          src={imageSrc}
-          alt={person.name}
-          width={imageSize}
-          height={imageSize}
-        />
-        <ul>
-          <li>
-            <b>Profession:</b> {person.profession}
-          </li>
-          <li>
-            <b>Awards: {person.awards.length} </b>
-            ({person.awards.join(', ')})
-          </li>
-          <li>
-            <b>Discovered: </b>
-            {person.discovery}
-          </li>
-        </ul>
-      </section>
-    )
+      <div className="card">
+        <div className="card-content">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+export default function Profile() {
+    return (
+      <div>
+        <Card>
+            <h1>Photo</h1>
+            <img
+              className="avatar"
+              src="https://i.imgur.com/OKS67lhm.jpg"
+              alt="Aklilu Lemma"
+              width={70}
+              height={70}
+            />
+        </Card>
+        <Card>
+            <h1>About</h1>
+            <p>Aklilu Lemma was a distinguished Ethiopian scientist who discovered a natural treatment to schistosomiasis.</p>
+        </Card>
+      </div>
+    );
   }
   
   
