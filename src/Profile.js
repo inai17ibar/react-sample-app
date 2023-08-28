@@ -1,37 +1,34 @@
 import React from 'react';
 import { getImageUrl } from './utils.js';
 
-export default function Profile({
-    imageId,
-    name,
-    profession,
-    awards,
-    discovery,
-    imageSize = 70
-  }) {
+export default function Profile({ person, imageSize = 70 }) {
+    const imageSrc = getImageUrl(person)
+  
     return (
       <section className="profile">
-        <h2>{name}</h2>
+        <h2>{person.name}</h2>
         <img
           className="avatar"
-          src={getImageUrl(imageId)}
-          alt={name}
+          src={imageSrc}
+          alt={person.name}
           width={imageSize}
           height={imageSize}
         />
         <ul>
-          <li><b>Profession:</b> {profession}</li>
           <li>
-            <b>Awards: {awards.length} </b>
-            ({awards.join(', ')})
+            <b>Profession:</b> {person.profession}
+          </li>
+          <li>
+            <b>Awards: {person.awards.length} </b>
+            ({person.awards.join(', ')})
           </li>
           <li>
             <b>Discovered: </b>
-            {discovery}
+            {person.discovery}
           </li>
         </ul>
       </section>
-    );
+    )
   }
   
   
