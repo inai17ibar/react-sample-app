@@ -3,7 +3,7 @@ import './App.css';
 
 function Item({ name, isPacked }) {
   if (isPacked) {
-    return <li className="item">{name} ✔</li>;
+    return null;
   }
   return <li className="item">{name}</li>;
 }
