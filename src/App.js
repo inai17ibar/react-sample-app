@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 
-function Item({ name, isPacked }) {
+function Item({ name, importance }) {
   return (
     <li className="item">
-      {name} {isPacked ? '✔' : '❌'}
+      {name}
+      {importance > 0 && ' '}
+      {importance > 0 &&
+        <i>(importance: {importance})</i>
+      }
     </li>
   );
 }
@@ -14,16 +18,16 @@ function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
+      <Item 
+          importance={9} 
           name="Space suit" 
         />
         <Item 
-          isPacked={true} 
+          importance={0} 
           name="Helmet with a golden leaf" 
         />
         <Item 
-          isPacked={false} 
+          importance={6} 
           name="Photo of Tam" 
         />
       </ul>
