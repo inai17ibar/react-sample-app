@@ -1,32 +1,6 @@
 import React from 'react';
 import './App.css';
-import { recipes } from './recipeData.js';
-
-function Recipe({ id, name, ingredients }) {
-  return (
-    <div>
-      <h2>{name}</h2>
-      <ul>
-        {ingredients.map(ingredient =>
-          <li key={ingredient}>
-            {ingredient}
-          </li>
-        )}
-      </ul>
-    </div>
-  );
-}
-
-function RecipeList() {
-  return (
-    <div>
-      <h1>Recipes</h1>
-      {recipes.map(recipe =>
-        <Recipe {...recipe} key={recipe.id} />
-      )}
-    </div>
-  );
-}
+import RecipeList from './RecipeList';
 
 export default function App() {
   return (
