@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { Fragment } from 'react';
 
 const poem = {
   lines: [
@@ -10,25 +11,14 @@ const poem = {
 };
 
 function Poem() {
-  let output = [];
-
-  // Fill the output array
-  poem.lines.forEach((line, i) => {
-    output.push(
-      <hr key={i + '-separator'} />
-    );
-    output.push(
-      <p key={i + '-text'}>
-        {line}
-      </p>
-    );
-  });
-  // Remove the first <hr />
-  output.shift();
-
   return (
     <article>
-      {output}
+      {poem.lines.map((line, i) =>
+        <Fragment key={i}>
+          {i > 0 && <hr />}
+          <p>{line}</p>
+        </Fragment>
+      )}
     </article>
   );
 }
