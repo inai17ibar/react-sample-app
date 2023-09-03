@@ -48,13 +48,14 @@ ul {
 
 ul { padding: 0px 10px; }
 
-img { width: 100px; height: 100px; border-radius: 50%; }
+/* img { width: 100px; height: 100px; border-radius: 50%; } */
 
-.day {
-  background: #fff;
-  color: #222;
+.avatar { margin: 5px; border-radius: 50%; }
+.panel {
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 10px;
+  width: 200px;
 }
-.night {
-  background: #222;
-  color: #fff;
-}
+h1 { margin: 5px; font-size: 18px; }
