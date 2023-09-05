@@ -4,56 +4,37 @@ import './App.css';
 import { useState } from 'react';
 import { sculptureList } from './data.js';
 
-export default function Gallery() {
-  const [index, setIndex] = useState(0);
-  const [showMore, setShowMore] = useState(false);
-  const hasNext = index < sculptureList.length - 1;
-  const hasPrev = index > 0;
+export default function Form() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  function handleNextClick() {
-    if (hasNext) {
-      setIndex(index + 1);
-    } else {
-      setIndex(0);
-    }
+  function handleFirstNameChange(e) {
+    setFirstName(e.target.value);
   }
 
-  function handlePrevClick() {
-    if (hasPrev) {
-      setIndex(index - 1);
-    } else {
-      setIndex(sculptureList.length - 1);
-    }
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
   }
 
-  function handleMoreClick() {
-    setShowMore(!showMore);
+  function handleReset() {
+    setFirstName('');
+    setLastName('');
   }
 
-  let sculpture = sculptureList[index];
   return (
-    <>
-      <button onClick={handleNextClick}>
-        Next
-      </button>
-      <button onClick={handlePrevClick}>
-        Prev
-      </button>
-      <h2>
-        <i>{sculpture.name} </i>
-        by {sculpture.artist}
-      </h2>
-      <h3>
-        ({index + 1} of {sculptureList.length})
-      </h3>
-      <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
-      </button>
-      {showMore && <p>{sculpture.description}</p>}
-      <img
-        src={sculpture.url}
-        alt={sculpture.alt}
+    <form onSubmit={e => e.preventDefault()}>
+      <input
+        placeholder="First name"
+        value={firstName}
+        onChange={handleFirstNameChange}
       />
-    </>
+      <input
+        placeholder="Last name"
+        value={lastName}
+        onChange={handleLastNameChange}
+      />
+      <h1>Hi, {firstName} {lastName}</h1>
+      <button onClick={handleReset}>Reset</button>
+    </form>
   );
 }
