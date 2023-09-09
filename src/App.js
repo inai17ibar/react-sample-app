@@ -2,18 +2,39 @@ import React from 'react';
 import './App.css';
 import { useState } from 'react';
 
-export default function Counter() {
-  const [number, setNumber] = useState(0);
+export default function RequestTracker() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(p => p + 1);
+    await delay(3000);
+    setPending(p => p - 1);
+    setCompleted(c => c + 1);
+    // setPending(pending + 1); //これでも可
+    // await delay(3000);
+    // setPending(pending => pending - 1);
+    // setCompleted(completed + 1);
+  }
 
   return (
     <>
-      <h1>{number}</h1>
-      <button onClick={() => {
-        setNumber(n => n + 1);
-        setNumber(n => n + 1);
-        setNumber(n => n + 1);
-      }}>+3</button>
+      <h3>
+        Pending: {pending}
+      </h3>
+      <h3>
+        Completed: {completed}
+      </h3>
+      <button onClick={handleClick}>
+        Buy     
+      </button>
     </>
-  )
+  );
+}
+
+function delay(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
