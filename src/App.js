@@ -1,52 +1,30 @@
 import React from 'react';
-import { useImmer } from 'use-immer';
-import Background from './Background.js';
-import Box from './Box.js';
+import { useState } from 'react';
 
-const initialPosition = { //メソッドの外のほうがいいのか？exportしなければ内部定数でとどまるからよいか
-  x: 0,
-  y: 0
-};
+let nextId = 0;
 
-export default function Canvas() {
-  const [shape, updateShape] = useImmer({ //set to update, useState to useImmer
-    color: 'orange',
-    position: initialPosition
-  });
-
-  function handleMove(dx, dy) {
-    updateShape(draft => {
-        draft.position.x += dx;
-        draft.position.y += dy;
-      });
-  }
-
-  function handleColorChange(e) {
-    updateShape(draft => {
-      draft.color = e.target.value;
-    });
-  }
+export default function List() {
+  const [name, setName] = useState('');
+  const [artists, setArtists] = useState([]);
 
   return (
     <>
-      <select
-        value={shape.color}
-        onChange={handleColorChange}
-      >
-        <option value="orange">orange</option>
-        <option value="lightpink">lightpink</option>
-        <option value="aliceblue">aliceblue</option>
-      </select>
-      <Background
-        position={initialPosition}
+      <h1>Inspiring sculptors:</h1>
+      <input
+        value={name}
+        onChange={e => setName(e.target.value)}
       />
-      <Box
-        color={shape.color}
-        position={shape.position}
-        onMove={handleMove}
-      >
-        Drag me!
-      </Box>
+      <button onClick={() => {
+        setArtists([
+          ...artists,
+          { id: nextId++, name: name }
+        ]);
+      }}>Add</button>
+      <ul>
+        {artists.map(artist => (
+          <li key={artist.id}>{artist.name}</li>
+        ))}
+      </ul>
     </>
   );
 }
