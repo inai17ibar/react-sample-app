@@ -22,13 +22,33 @@ export default function ShoppingCart() {
   ] = useState(initialProducts)
 
   function handleIncreaseClick(productId) {
-    setProducts(products.map(product => { //この記法を覚えておく
-      if (product.id === productId){
-        return {...product, count: product.count+1};
-      }else {
+    setProducts(products.map(product => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          count: product.count + 1
+        };
+      } else {
         return product;
       }
-    }));
+    }))
+  }
+
+  function handleDecreaseClick(productId) {
+    let nextProducts = products.map(product => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          count: product.count - 1
+        };
+      } else {
+        return product;
+      }
+    });
+    nextProducts = nextProducts.filter(p => //条件を満たすものだけ更新する
+      p.count > 0
+    );
+    setProducts(nextProducts)
   }
 
   return (
@@ -42,6 +62,11 @@ export default function ShoppingCart() {
             handleIncreaseClick(product.id);
           }}>
             +
+          </button>
+          <button onClick={() => {
+            handleDecreaseClick(product.id);
+          }}>
+            –
           </button>
         </li>
       ))}
