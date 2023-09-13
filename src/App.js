@@ -2,6 +2,7 @@ import React from 'react';
 import AddTodo from './AddTodo.js';
 import TaskList from './TaskList.js';
 import { useState } from 'react';
+import { useImmer } from 'use-immer';
 
 let nextId = 3;
 const initialTodos = [
@@ -11,35 +12,34 @@ const initialTodos = [
 ];
 
 export default function TaskApp() {
-  const [todos, setTodos] = useState(
+  const [todos,updateTodos] = useImmer(
     initialTodos
   );
 
   function handleAddTodo(title) {
-    setTodos([
-      ...todos,
-      {
+    updateTodos(draft =>{
+      draft.push({
         id: nextId++,
         title: title,
         done: false
-      }
-    ]);
+      }); //Immerはpushが使えるらしい
+    });
   }
 
   function handleChangeTodo(nextTodo) {
-    setTodos(todos.map(t => {
-      if (t.id === nextTodo.id) {
+    updateTodos(todos.map(todo => { //setter以外かえあらない
+      if (todo.id === nextTodo.id) {
         return nextTodo;
       } else {
-        return t;
+        return todo;
       }
-      }));
+    }));
     }
 
   function handleDeleteTodo(todoId) {
-    setTodos(
+    updateTodos(
       todos.filter(t => t.id !== todoId)
-    );
+    ); //Setter名以外変わらない
   }
 
   return (
