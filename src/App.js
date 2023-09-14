@@ -1,57 +1,71 @@
 import React from 'react';
-import AddTodo from './AddTodo.js';
-import TaskList from './TaskList.js';
 import { useState } from 'react';
-import { useImmer } from 'use-immer';
 
-let nextId = 3;
-const initialTodos = [
-  { id: 0, title: 'Buy milk', done: true },
-  { id: 1, title: 'Eat tacos', done: false },
-  { id: 2, title: 'Brew tea', done: false },
-];
+export default function Form(){
+  const [answer, setAnswer] = useState('');
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('typing');
 
-export default function TaskApp() {
-  const [todos,updateTodos] = useImmer(
-    initialTodos
-  );
-
-  function handleAddTodo(title) {
-    updateTodos(draft =>{
-      draft.push({
-        id: nextId++,
-        title: title,
-        done: false
-      }); //Immerはpushが使えるらしい
-    });
+  if (status === 'success') {
+    return <h1>That's right!</h1>
   }
 
-  function handleChangeTodo(nextTodo) {
-    updateTodos(todos.map(todo => { //setter以外かえあらない
-      if (todo.id === nextTodo.id) {
-        return nextTodo;
-      } else {
-        return todo;
-      }
-    }));
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      //await 演算子はプロミス (Promise) を待ち、履行値を取得するために使用します。非同期関数の中、またはmoduleの最上位でのみ使用することができます。
+      await submitForm(answer);
+      setStatus('success');
+    } catch (err) {
+      setStatus('typing');
+      setError(err);
     }
+  }
 
-  function handleDeleteTodo(todoId) {
-    updateTodos(
-      todos.filter(t => t.id !== todoId)
-    ); //Setter名以外変わらない
+  function handleTextareaChange(e) {
+    setAnswer(e.target.value);
   }
 
   return (
     <>
-      <AddTodo
-        onAddTodo={handleAddTodo}
-      />
-      <TaskList
-        todos={todos}
-        onChangeTodo={handleChangeTodo}
-        onDeleteTodo={handleDeleteTodo}
-      />
+      <h2>City quiz</h2>
+      <p>
+        In which city is there a billboard that turns air into drinkable water?
+      </p>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={answer}
+          onChange={handleTextareaChange}
+          disabled={status === 'submitting'}
+        />
+        <br />
+        <button disabled={
+          answer.length === 0 ||
+          status === 'submitting'
+        }>
+          Submit
+        </button>
+        {error !== null &&
+          <p className="Error">
+            {error.message}
+          </p>
+        }
+      </form>
     </>
   );
+}
+
+function submitForm(answer) {
+  // Pretend it's hitting the network.
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let shouldError = answer.toLowerCase() !== 'lima' //答え
+      if (shouldError) {
+        reject(new Error('Good guess but a wrong answer. Try again!'));
+      } else {
+        resolve();
+      }
+    }, 1500);
+  });
 }
